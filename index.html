@@ -1,116 +1,156 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stellar English Organizer</title>
-  <link rel="stylesheet" href="stellar-organizer.css">
+  <link rel="stylesheet" href="stellar-organizer-v2.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="universe">
-    <!-- Estrellas de fondo animadas -->
+    <!-- Animated background stars -->
     <div class="stars-bg"></div>
     <div class="stars-bg-2"></div>
     <div class="stars-bg-3"></div>
     
-    <!-- Contenedor principal -->
+    <!-- Main container -->
     <div class="container">
       <header class="header">
         <h1 class="title">Stellar English Organizer</h1>
-        <p class="subtitle">Organiza tus temas de inglés en el cosmos</p>
+        <p class="subtitle">Organize your English topics in the cosmos</p>
       </header>
       
-      <!-- Cuerpo celeste central interactivo -->
+      <!-- Interactive central celestial body -->
       <div class="celestial-container">
         <div class="celestial-body" id="celestialBody">
           <div class="celestial-glow"></div>
           <div class="celestial-core"></div>
           <div class="celestial-ring"></div>
         </div>
-        <div class="celestial-name" id="celestialName">Estrella</div>
-        <p class="click-hint">Click para cambiar</p>
+        <div class="celestial-name" id="celestialName">Star</div>
+        <p class="click-hint">Click to change</p>
       </div>
       
-      <!-- Panel de organización de temas -->
+      <!-- Topic input panel -->
       <div class="organizer-panel">
-        <h2 class="panel-title">Temas de Ingles</h2>
+        <h2 class="panel-title">English Topics</h2>
         
         <div class="categories-grid">
-          <!-- Categoría 1 -->
+          <!-- Category 1: Vocabulary -->
           <div class="category-card" data-category="vocabulary">
             <div class="card-icon">&#128214;</div>
             <h3>Vocabulary</h3>
-            <textarea class="card-notes" placeholder="Escribe tus palabras aqui..."></textarea>
-            <div class="card-tags">
-              <span class="tag">noun</span>
-              <span class="tag">verb</span>
-              <span class="tag">adjective</span>
+            <div class="input-container">
+              <input type="text" class="card-input" placeholder="Add new word..." data-category="vocabulary">
+              <button class="add-btn" data-category="vocabulary">Add</button>
             </div>
+            <div class="item-count" id="count-vocabulary">0 items</div>
           </div>
           
-          <!-- Categoría 2 -->
+          <!-- Category 2: Grammar -->
           <div class="category-card" data-category="grammar">
             <div class="card-icon">&#9889;</div>
             <h3>Grammar</h3>
-            <textarea class="card-notes" placeholder="Reglas gramaticales..."></textarea>
-            <div class="card-tags">
-              <span class="tag">tenses</span>
-              <span class="tag">conditionals</span>
-              <span class="tag">modals</span>
+            <div class="input-container">
+              <input type="text" class="card-input" placeholder="Add grammar rule..." data-category="grammar">
+              <button class="add-btn" data-category="grammar">Add</button>
             </div>
+            <div class="item-count" id="count-grammar">0 items</div>
           </div>
           
-          <!-- Categoría 3 -->
+          <!-- Category 3: Phrasal Verbs -->
           <div class="category-card" data-category="phrasal">
             <div class="card-icon">&#128640;</div>
             <h3>Phrasal Verbs</h3>
-            <textarea class="card-notes" placeholder="Phrasal verbs..."></textarea>
-            <div class="card-tags">
-              <span class="tag">get up</span>
-              <span class="tag">look for</span>
-              <span class="tag">give up</span>
+            <div class="input-container">
+              <input type="text" class="card-input" placeholder="Add phrasal verb..." data-category="phrasal">
+              <button class="add-btn" data-category="phrasal">Add</button>
             </div>
+            <div class="item-count" id="count-phrasal">0 items</div>
           </div>
           
-          <!-- Categoría 4 -->
+          <!-- Category 4: Idioms -->
           <div class="category-card" data-category="idioms">
             <div class="card-icon">&#11088;</div>
             <h3>Idioms</h3>
-            <textarea class="card-notes" placeholder="Expresiones idiomaticas..."></textarea>
-            <div class="card-tags">
-              <span class="tag">piece of cake</span>
-              <span class="tag">break a leg</span>
+            <div class="input-container">
+              <input type="text" class="card-input" placeholder="Add idiom..." data-category="idioms">
+              <button class="add-btn" data-category="idioms">Add</button>
             </div>
+            <div class="item-count" id="count-idioms">0 items</div>
           </div>
           
-          <!-- Categoría 5 -->
+          <!-- Category 5: Listening -->
           <div class="category-card" data-category="listening">
             <div class="card-icon">&#127911;</div>
             <h3>Listening</h3>
-            <textarea class="card-notes" placeholder="Notas de listening..."></textarea>
-            <div class="card-tags">
-              <span class="tag">podcasts</span>
-              <span class="tag">songs</span>
+            <div class="input-container">
+              <input type="text" class="card-input" placeholder="Add listening note..." data-category="listening">
+              <button class="add-btn" data-category="listening">Add</button>
             </div>
+            <div class="item-count" id="count-listening">0 items</div>
           </div>
           
-          <!-- Categoría 6 -->
+          <!-- Category 6: Writing -->
           <div class="category-card" data-category="writing">
             <div class="card-icon">&#9997;</div>
             <h3>Writing</h3>
-            <textarea class="card-notes" placeholder="Tips de escritura..."></textarea>
-            <div class="card-tags">
-              <span class="tag">essays</span>
-              <span class="tag">emails</span>
+            <div class="input-container">
+              <input type="text" class="card-input" placeholder="Add writing tip..." data-category="writing">
+              <button class="add-btn" data-category="writing">Add</button>
             </div>
+            <div class="item-count" id="count-writing">0 items</div>
           </div>
         </div>
       </div>
       
-      <!-- Contador de cuerpos celestes -->
+      <!-- Solar System Section -->
+      <div class="solar-system-section">
+        <h2 class="section-title">Your Learning Universe</h2>
+        <p class="section-subtitle">Click on any planet to view your saved items</p>
+        
+        <div class="solar-system" id="solarSystem">
+          <!-- Central Star -->
+          <div class="sun-center">
+            <div class="sun-glow"></div>
+            <div class="sun-core"></div>
+          </div>
+          
+          <!-- Orbits and Planets will be generated by JavaScript -->
+        </div>
+        
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-color" style="background: #e74c3c;"></span>
+            <span>Vocabulary</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #f39c12;"></span>
+            <span>Grammar</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #3498db;"></span>
+            <span>Phrasal Verbs</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #9b59b6;"></span>
+            <span>Idioms</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #1abc9c;"></span>
+            <span>Listening</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #e91e63;"></span>
+            <span>Writing</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Counter -->
       <div class="celestial-counter">
-        <span id="counterText">Cuerpo celeste: 1/10</span>
+        <span id="counterText">Celestial body: 1/11</span>
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -118,9 +158,32 @@
     </div>
   </div>
   
-  <!-- Partículas flotantes -->
+  <!-- Floating particles -->
   <div class="floating-particles" id="floatingParticles"></div>
   
-  <script src="stellar-organizer.js"></script>
+  <!-- Modal for item list -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Topic Items</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="items-list" id="itemsList">
+          <!-- Items will be inserted here -->
+        </div>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">&#127759;</div>
+          <p>No items yet. Add some from the cards above!</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="total-items" id="totalItems">Total: 0 items</span>
+        <button class="clear-btn" id="clearBtn">Clear All</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="stellar-organizer-v2.js"></script>
 </body>
 </html>

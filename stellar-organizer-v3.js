@@ -1,4 +1,4 @@
-// ===== STELLAR ENGLISH ORGANIZER V2 - JAVASCRIPT =====
+// ===== STELLAR ENGLISH ORGANIZER V3 - JAVASCRIPT =====
 
 // ===== CELESTIAL BODIES CONFIGURATION =====
 const celestialBodies = [
@@ -28,7 +28,6 @@ const categories = [
 // ===== GLOBAL VARIABLES =====
 let currentIndex = 0;
 let isTransitioning = false;
-let currentModalCategory = null;
 let data = {};
 
 // ===== DOM ELEMENTS =====
@@ -38,17 +37,10 @@ const counterText = document.getElementById('counterText');
 const progressFill = document.getElementById('progressFill');
 const floatingParticles = document.getElementById('floatingParticles');
 const solarSystem = document.getElementById('solarSystem');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalTitle = document.getElementById('modalTitle');
-const itemsList = document.getElementById('itemsList');
-const emptyState = document.getElementById('emptyState');
-const totalItems = document.getElementById('totalItems');
-const modalClose = document.getElementById('modalClose');
-const clearBtn = document.getElementById('clearBtn');
 
 // ===== INITIALIZE DATA =====
 function initializeData() {
-  const saved = localStorage.getItem('stellarEnglishData');
+  const saved = localStorage.getItem('stellarEnglishDataV3');
   if (saved) {
     data = JSON.parse(saved);
   } else {
@@ -60,7 +52,7 @@ function initializeData() {
 
 // ===== SAVE DATA =====
 function saveData() {
-  localStorage.setItem('stellarEnglishData', JSON.stringify(data));
+  localStorage.setItem('stellarEnglishDataV3', JSON.stringify(data));
 }
 
 // ===== CHANGE CELESTIAL BODY =====
@@ -197,6 +189,7 @@ function addItem(category) {
   saveData();
   updateItemCount(category);
   updateSolarSystem();
+  renderTerminalList(category);
   showNotification(`Added to ${getCategoryName(category)}!`);
 }
 
@@ -206,19 +199,7 @@ function deleteItem(category, itemId) {
   saveData();
   updateItemCount(category);
   updateSolarSystem();
-  renderModalItems(category);
-}
-
-// ===== CLEAR ALL ITEMS =====
-function clearAllItems(category) {
-  if (confirm(`Are you sure you want to delete all items from ${getCategoryName(category)}?`)) {
-    data[category] = [];
-    saveData();
-    updateItemCount(category);
-    updateSolarSystem();
-    renderModalItems(category);
-    showNotification('All items cleared!');
-  }
+  renderTerminalList(category);
 }
 
 // ===== GET CATEGORY NAME =====
@@ -232,11 +213,47 @@ function updateItemCount(category) {
   const countEl = document.getElementById(`count-${category}`);
   const count = data[category] ? data[category].length : 0;
   countEl.textContent = `${count} item${count !== 1 ? 's' : ''}`;
+  
+  // Update terminal count
+  const terminalCount = document.getElementById(`terminal-count-${category}`);
+  if (terminalCount) {
+    terminalCount.textContent = `${count} ${count === 1 ? 'entry' : 'entries'}`;
+  }
 }
 
 // ===== UPDATE ALL ITEM COUNTS =====
 function updateAllItemCounts() {
   categories.forEach(cat => updateItemCount(cat.id));
+}
+
+// ===== RENDER TERMINAL LIST =====
+function renderTerminalList(category) {
+  const listEl = document.getElementById(`list-${category}`);
+  const items = data[category] || [];
+  
+  if (items.length === 0) {
+    listEl.innerHTML = `
+      <div class="terminal-line empty-message">
+        <span class="prompt">&gt;</span>
+        <span class="text-muted">No entries yet. Add some above!</span>
+      </div>
+    `;
+    return;
+  }
+  
+  listEl.innerHTML = items.map((item, index) => `
+    <div class="terminal-line" data-id="${item.id}">
+      <span class="line-number">${String(index + 1).padStart(2, '0')}</span>
+      <span class="prompt">&gt;</span>
+      <span class="terminal-text">${escapeHtml(item.text)}</span>
+      <button class="terminal-delete" onclick="deleteItem('${category}', ${item.id})" title="Delete">&#10005;</button>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER ALL TERMINAL LISTS =====
+function renderAllTerminalLists() {
+  categories.forEach(cat => renderTerminalList(cat.id));
 }
 
 // ===== CREATE SOLAR SYSTEM =====
@@ -253,9 +270,10 @@ function createSolarSystem() {
     orbit.style.height = `${cat.orbitRadius * 2}px`;
     orbit.style.animationDuration = `${cat.speed}s`;
     
-    // Create planet
-    const planet = document.createElement('div');
+    // Create planet as a link
+    const planet = document.createElement('a');
     planet.className = `planet planet-${cat.id}`;
+    planet.href = `#terminal-${cat.id}`;
     planet.dataset.category = cat.id;
     planet.style.top = '0';
     planet.style.left = '50%';
@@ -279,10 +297,16 @@ function createSolarSystem() {
     // Counter-rotate planet to stay upright
     planet.style.animation = `orbitRotate ${cat.speed}s linear infinite reverse`;
     
-    // Click handler
+    // Click handler for highlight
     planet.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openModal(cat.id);
+      // Add highlight to terminal
+      setTimeout(() => {
+        const terminal = document.getElementById(`terminal-${cat.id}`);
+        if (terminal) {
+          terminal.classList.add('highlight');
+          setTimeout(() => terminal.classList.remove('highlight'), 1000);
+        }
+      }, 300);
     });
     
     orbit.appendChild(planet);
@@ -300,48 +324,6 @@ function updateSolarSystem() {
       badge.style.opacity = count === 0 ? '0.3' : '1';
     }
   });
-}
-
-// ===== OPEN MODAL =====
-function openModal(category) {
-  currentModalCategory = category;
-  const cat = categories.find(c => c.id === category);
-  modalTitle.textContent = cat.name;
-  modalTitle.style.color = cat.color;
-  renderModalItems(category);
-  modalOverlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-// ===== CLOSE MODAL =====
-function closeModal() {
-  modalOverlay.classList.remove('active');
-  document.body.style.overflow = '';
-  currentModalCategory = null;
-}
-
-// ===== RENDER MODAL ITEMS =====
-function renderModalItems(category) {
-  const items = data[category] || [];
-  
-  if (items.length === 0) {
-    itemsList.innerHTML = '';
-    emptyState.classList.add('show');
-    totalItems.textContent = 'Total: 0 items';
-    return;
-  }
-  
-  emptyState.classList.remove('show');
-  
-  itemsList.innerHTML = items.map((item, index) => `
-    <div class="item-row" data-id="${item.id}">
-      <span class="item-number">${index + 1}</span>
-      <span class="item-text">${escapeHtml(item.text)}</span>
-      <button class="item-delete" onclick="deleteItem('${category}', ${item.id})">&#10005;</button>
-    </div>
-  `).join('');
-  
-  totalItems.textContent = `Total: ${items.length} item${items.length !== 1 ? 's' : ''}`;
 }
 
 // ===== ESCAPE HTML =====
@@ -379,10 +361,11 @@ function initCardEffects() {
     });
   });
   
-  // Enter key on inputs
+  // Enter key on inputs - allow spaces
   document.querySelectorAll('.card-input').forEach(input => {
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
+        e.preventDefault();
         const category = input.dataset.category;
         addItem(category);
       }
@@ -405,29 +388,6 @@ function initCardEffects() {
     card.addEventListener('mouseleave', function() {
       card.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))';
     });
-  });
-}
-
-// ===== INIT MODAL =====
-function initModal() {
-  modalClose.addEventListener('click', closeModal);
-  
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) {
-      closeModal();
-    }
-  });
-  
-  clearBtn.addEventListener('click', () => {
-    if (currentModalCategory) {
-      clearAllItems(currentModalCategory);
-    }
-  });
-  
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-      closeModal();
-    }
   });
 }
 
@@ -465,26 +425,24 @@ function init() {
   
   // Initialize components
   initCardEffects();
-  initModal();
   initParallax();
   createFloatingParticles();
   createSolarSystem();
+  renderAllTerminalLists();
   updateAllItemCounts();
   updateCounter();
   
   // Keyboard shortcuts
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-      if (!modalOverlay.classList.contains('active')) {
-        e.preventDefault();
-        changeCelestialBody();
-      }
+      e.preventDefault();
+      changeCelestialBody();
     }
   });
   
-  console.log('Stellar English Organizer V2 initialized!');
+  console.log('Stellar English Organizer V3 initialized!');
   console.log('Click on the celestial body or press Space to change.');
-  console.log('Click on any planet to view your saved items.');
+  console.log('Click on any planet to scroll to its terminal list.');
 }
 
 // ===== START WHEN DOM IS READY =====

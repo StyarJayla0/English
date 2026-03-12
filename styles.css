@@ -1,0 +1,801 @@
+/* ===== RESET Y VARIABLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --space-dark: #0a0a1a;
+  --space-purple: #1a0a2e;
+  --nebula-pink: #ff6b9d;
+  --nebula-blue: #4ecdc4;
+  --star-yellow: #ffd93d;
+  --star-orange: #ff8c42;
+  --planet-blue: #667eea;
+  --planet-red: #f093fb;
+  --comet-cyan: #00d4ff;
+  --moon-silver: #c9d6df;
+  --sun-gold: #ffb347;
+  --mars-red: #e74c3c;
+  --jupiter-orange: #d35400;
+  --saturn-gold: #f39c12;
+  --neptune-blue: #3498db;
+  --venus-yellow: #f1c40f;
+  --blackhole-purple: #8e44ad;
+}
+
+/* ===== BODY Y UNIVERSO ===== */
+body {
+  font-family: 'Space Mono', monospace;
+  background: var(--space-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: white;
+}
+
+.universe {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--space-dark) 0%, var(--space-purple) 50%, #16213e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== ESTRELLAS DE FONDO ANIMADAS ===== */
+.stars-bg, .stars-bg-2, .stars-bg-3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.stars-bg {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, white, transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 230px 80px, white, transparent),
+    radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 370px 60px, white, transparent),
+    radial-gradient(2px 2px at 450px 200px, white, transparent),
+    radial-gradient(1px 1px at 520px 90px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 600px 180px, white, transparent);
+  background-size: 650px 250px;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+.stars-bg-2 {
+  background-image: 
+    radial-gradient(1px 1px at 100px 50px, rgba(255,215,0,0.8), transparent),
+    radial-gradient(1px 1px at 200px 150px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 350px 100px, rgba(100,200,255,0.7), transparent),
+    radial-gradient(1px 1px at 500px 250px, white, transparent),
+    radial-gradient(1px 1px at 150px 300px, rgba(255,200,100,0.8), transparent);
+  background-size: 550px 350px;
+  animation: twinkle 6s ease-in-out infinite reverse;
+}
+
+.stars-bg-3 {
+  background-image: 
+    radial-gradient(3px 3px at 80px 200px, rgba(255,100,150,0.6), transparent),
+    radial-gradient(2px 2px at 400px 50px, rgba(100,255,200,0.5), transparent),
+    radial-gradient(3px 3px at 250px 350px, rgba(150,100,255,0.6), transparent);
+  background-size: 500px 400px;
+  animation: twinkle 8s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--star-yellow), var(--nebula-pink), var(--nebula-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255,217,61,0.5);
+  animation: titleGlow 3s ease-in-out infinite;
+  letter-spacing: 3px;
+}
+
+@keyframes titleGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 10px;
+  letter-spacing: 2px;
+}
+
+/* ===== CUERPO CELESTE CENTRAL ===== */
+.celestial-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.celestial-container:hover {
+  transform: scale(1.05);
+}
+
+.celestial-body {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+.celestial-glow {
+  position: absolute;
+  width: 180%;
+  height: 180%;
+  top: -40%;
+  left: -40%;
+  border-radius: 50%;
+  opacity: 0.6;
+  filter: blur(20px);
+  transition: all 0.5s ease;
+}
+
+.celestial-core {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.celestial-ring {
+  position: absolute;
+  width: 200%;
+  height: 40%;
+  top: 30%;
+  left: -50%;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  transform: rotateX(75deg);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+/* ===== ESTILOS DE CADA CUERPO CELESTE ===== */
+
+/* Estrella */
+.celestial-body.star .celestial-glow {
+  background: radial-gradient(circle, var(--star-yellow), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.celestial-body.star .celestial-core {
+  background: radial-gradient(circle at 30% 30%, #fff7ad, var(--star-yellow), var(--star-orange));
+  box-shadow: 
+    0 0 30px var(--star-yellow),
+    0 0 60px var(--star-orange),
+    inset -10px -10px 20px rgba(255,140,66,0.5);
+}
+
+.celestial-body.star .celestial-core::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%);
+  animation: starBurst 3s linear infinite;
+}
+
+@keyframes starBurst {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Sol */
+.celestial-body.sun .celestial-glow {
+  background: radial-gradient(circle, var(--sun-gold), transparent);
+  animation: sunPulse 1.5s ease-in-out infinite;
+}
+
+.celestial-body.sun .celestial-core {
+  background: radial-gradient(circle at 35% 35%, #fff5c0, var(--sun-gold), #ff6b35);
+  box-shadow: 
+    0 0 40px var(--sun-gold),
+    0 0 80px #ff6b35,
+    0 0 120px rgba(255,107,53,0.5);
+}
+
+.celestial-body.sun::after {
+  content: '';
+  position: absolute;
+  width: 170%;
+  height: 170%;
+  top: -35%;
+  left: -35%;
+  background: conic-gradient(from 0deg, transparent, rgba(255,179,71,0.3), transparent, rgba(255,179,71,0.3), transparent, rgba(255,179,71,0.3), transparent, rgba(255,179,71,0.3), transparent);
+  border-radius: 50%;
+  animation: sunRays 10s linear infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes sunRays {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Luna */
+.celestial-body.moon .celestial-glow {
+  background: radial-gradient(circle, var(--moon-silver), transparent);
+  opacity: 0.4;
+}
+
+.celestial-body.moon .celestial-core {
+  background: radial-gradient(circle at 30% 30%, #f5f5f5, var(--moon-silver), #8a9a9a);
+  box-shadow: 
+    0 0 20px rgba(201,214,223,0.5),
+    inset -15px -15px 30px rgba(100,100,100,0.3);
+}
+
+.celestial-body.moon .celestial-core::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(100,100,100,0.2);
+  border-radius: 50%;
+  top: 20%;
+  left: 30%;
+  box-shadow: 
+    40px 20px 0 -5px rgba(100,100,100,0.15),
+    20px 50px 0 5px rgba(100,100,100,0.2),
+    60px 40px 0 -8px rgba(100,100,100,0.1);
+}
+
+/* Planeta Azul (Tierra/Neptuno) */
+.celestial-body.planet-blue .celestial-glow {
+  background: radial-gradient(circle, var(--planet-blue), transparent);
+}
+
+.celestial-body.planet-blue .celestial-core {
+  background: 
+    radial-gradient(circle at 25% 25%, #a8e6cf, var(--neptune-blue), #1e3a5f);
+  box-shadow: 
+    0 0 30px var(--planet-blue),
+    inset -10px -10px 30px rgba(0,0,0,0.3);
+}
+
+.celestial-body.planet-blue .celestial-core::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: 
+    radial-gradient(ellipse 80% 20% at 50% 30%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(ellipse 60% 15% at 30% 60%, rgba(255,255,255,0.2), transparent);
+}
+
+/* Marte */
+.celestial-body.mars .celestial-glow {
+  background: radial-gradient(circle, var(--mars-red), transparent);
+}
+
+.celestial-body.mars .celestial-core {
+  background: radial-gradient(circle at 30% 30%, #e57373, var(--mars-red), #8b0000);
+  box-shadow: 
+    0 0 25px rgba(231,76,60,0.5),
+    inset -10px -10px 25px rgba(0,0,0,0.3);
+}
+
+.celestial-body.mars .celestial-core::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: 
+    radial-gradient(ellipse 30% 10% at 40% 40%, rgba(139,0,0,0.4), transparent),
+    radial-gradient(ellipse 20% 15% at 60% 70%, rgba(139,0,0,0.3), transparent);
+}
+
+/* Jupiter */
+.celestial-body.jupiter .celestial-glow {
+  background: radial-gradient(circle, var(--jupiter-orange), transparent);
+}
+
+.celestial-body.jupiter .celestial-core {
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #d4a574 0px,
+      #c9956c 8px,
+      #e8c4a0 16px,
+      #b8860b 24px,
+      #d4a574 32px
+    );
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px rgba(211,84,0,0.5),
+    inset -15px -15px 30px rgba(0,0,0,0.3);
+}
+
+.celestial-body.jupiter .celestial-core::before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  background: radial-gradient(ellipse, #c0392b, #8b0000);
+  border-radius: 50%;
+  top: 55%;
+  left: 30%;
+  box-shadow: 0 0 10px rgba(192,57,43,0.8);
+}
+
+/* Saturno */
+.celestial-body.saturn .celestial-glow {
+  background: radial-gradient(circle, var(--saturn-gold), transparent);
+}
+
+.celestial-body.saturn .celestial-core {
+  background: radial-gradient(circle at 30% 30%, #f5d76e, var(--saturn-gold), #b8860b);
+  box-shadow: 
+    0 0 25px rgba(243,156,18,0.5),
+    inset -10px -10px 25px rgba(0,0,0,0.2);
+}
+
+.celestial-body.saturn .celestial-ring {
+  opacity: 1;
+  border-color: rgba(210,180,140,0.6);
+  box-shadow: 
+    0 0 5px rgba(210,180,140,0.3),
+    inset 0 0 10px rgba(210,180,140,0.2);
+}
+
+.celestial-body.saturn .celestial-ring::before {
+  content: '';
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  top: 7.5%;
+  left: 7.5%;
+  border-radius: 50%;
+  border: 3px solid rgba(180,150,100,0.4);
+}
+
+/* Cometa */
+.celestial-body.comet .celestial-glow {
+  background: radial-gradient(circle, var(--comet-cyan), transparent);
+  opacity: 0.8;
+}
+
+.celestial-body.comet .celestial-core {
+  background: radial-gradient(circle at 70% 50%, #fff, var(--comet-cyan), #0099cc);
+  box-shadow: 
+    0 0 30px var(--comet-cyan),
+    0 0 60px rgba(0,212,255,0.5);
+}
+
+.celestial-body.comet::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 30%;
+  top: 35%;
+  right: 50%;
+  background: linear-gradient(to left, var(--comet-cyan), rgba(0,212,255,0.3), transparent);
+  border-radius: 50%;
+  animation: cometTail 1s ease-in-out infinite;
+}
+
+@keyframes cometTail {
+  0%, 100% { opacity: 0.8; width: 200%; }
+  50% { opacity: 1; width: 220%; }
+}
+
+/* Agujero Negro */
+.celestial-body.blackhole .celestial-glow {
+  background: radial-gradient(circle, transparent 30%, var(--blackhole-purple), transparent);
+  animation: blackholeSpin 3s linear infinite;
+}
+
+.celestial-body.blackhole .celestial-core {
+  background: radial-gradient(circle, #000 0%, #1a0a2e 50%, transparent 70%);
+  box-shadow: 
+    0 0 30px rgba(142,68,173,0.5),
+    inset 0 0 50px #000;
+}
+
+.celestial-body.blackhole::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: conic-gradient(from 0deg, transparent, var(--blackhole-purple), transparent, var(--nebula-pink), transparent);
+  border-radius: 50%;
+  animation: blackholeAccretion 4s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes blackholeSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blackholeAccretion {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Nebulosa */
+.celestial-body.nebula .celestial-glow {
+  background: radial-gradient(circle, var(--nebula-pink), var(--planet-blue), transparent);
+  animation: nebulaPulse 4s ease-in-out infinite;
+}
+
+.celestial-body.nebula .celestial-core {
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255,107,157,0.8), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(102,126,234,0.8), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(78,205,196,0.6), transparent);
+  box-shadow: 
+    0 0 40px var(--nebula-pink),
+    0 0 80px var(--planet-blue);
+  animation: nebulaShift 6s ease-in-out infinite;
+}
+
+@keyframes nebulaPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes nebulaShift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
+}
+
+/* Supernova */
+.celestial-body.supernova .celestial-glow {
+  background: radial-gradient(circle, #fff, var(--star-yellow), var(--nebula-pink), transparent);
+  animation: supernovaExplode 2s ease-in-out infinite;
+}
+
+.celestial-body.supernova .celestial-core {
+  background: radial-gradient(circle, #fff, #ffe4b5, var(--star-yellow), var(--star-orange));
+  box-shadow: 
+    0 0 50px #fff,
+    0 0 100px var(--star-yellow),
+    0 0 150px var(--star-orange),
+    0 0 200px var(--nebula-pink);
+  animation: supernovaCore 1s ease-in-out infinite;
+}
+
+@keyframes supernovaExplode {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+@keyframes supernovaCore {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ===== ANIMACIONES DE TRANSICIÓN ===== */
+.celestial-body.transitioning {
+  animation: celestialTransition 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes celestialTransition {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  25% { transform: scale(0.5) rotate(90deg); opacity: 0.5; }
+  50% { transform: scale(0.3) rotate(180deg); opacity: 0; }
+  75% { transform: scale(0.5) rotate(270deg); opacity: 0.5; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+/* ===== NOMBRE DEL CUERPO CELESTE ===== */
+.celestial-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  margin-top: 25px;
+  padding: 10px 25px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.click-hint {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 15px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== PANEL DE ORGANIZACIÓN ===== */
+.organizer-panel {
+  margin-top: 40px;
+}
+
+.panel-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--nebula-blue);
+  text-shadow: 0 0 10px rgba(78,205,196,0.5);
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* ===== TARJETAS DE CATEGORÍA ===== */
+.category-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.category-card:hover::before {
+  left: 100%;
+}
+
+.category-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(78,205,196,0.5);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.3),
+    0 0 30px rgba(78,205,196,0.2);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.category-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--star-yellow);
+}
+
+.card-notes {
+  width: 100%;
+  min-height: 80px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 12px;
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.card-notes:focus {
+  outline: none;
+  border-color: var(--nebula-blue);
+  box-shadow: 0 0 15px rgba(78,205,196,0.3);
+}
+
+.card-notes::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.tag {
+  background: linear-gradient(135deg, rgba(102,126,234,0.3), rgba(240,147,251,0.3));
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background: linear-gradient(135deg, rgba(102,126,234,0.5), rgba(240,147,251,0.5));
+  transform: scale(1.05);
+}
+
+/* ===== CONTADOR ===== */
+.celestial-counter {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+#counterText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.progress-bar {
+  width: 200px;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  margin: 15px auto 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--nebula-blue), var(--nebula-pink));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  width: 10%;
+}
+
+/* ===== PARTÍCULAS FLOTANTES ===== */
+.floating-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .celestial-body {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-card {
+    padding: 20px;
+  }
+}
+
+/* ===== EFECTO DE CLICK ===== */
+.click-effect {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
+  pointer-events: none;
+  animation: clickRipple 0.6s ease-out forwards;
+  z-index: 1000;
+}
+
+@keyframes clickRipple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--space-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--nebula-blue), var(--nebula-pink));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--planet-blue), var(--planet-red));
+}

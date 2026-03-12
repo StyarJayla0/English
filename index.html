@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stellar English Organizer</title>
-  <link rel="stylesheet" href="stellar-organizer-v2.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stellar-organizer-v3.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="universe">
@@ -42,7 +42,7 @@
             <div class="card-icon">&#128214;</div>
             <h3>Vocabulary</h3>
             <div class="input-container">
-              <input type="text" class="card-input" placeholder="Add new word..." data-category="vocabulary">
+              <input type="text" class="card-input" placeholder="Add new word or phrase..." data-category="vocabulary">
               <button class="add-btn" data-category="vocabulary">Add</button>
             </div>
             <div class="item-count" id="count-vocabulary">0 items</div>
@@ -75,7 +75,7 @@
             <div class="card-icon">&#11088;</div>
             <h3>Idioms</h3>
             <div class="input-container">
-              <input type="text" class="card-input" placeholder="Add idiom..." data-category="idioms">
+              <input type="text" class="card-input" placeholder="Add idiom or expression..." data-category="idioms">
               <button class="add-btn" data-category="idioms">Add</button>
             </div>
             <div class="item-count" id="count-idioms">0 items</div>
@@ -108,7 +108,7 @@
       <!-- Solar System Section -->
       <div class="solar-system-section">
         <h2 class="section-title">Your Learning Universe</h2>
-        <p class="section-subtitle">Click on any planet to view your saved items</p>
+        <p class="section-subtitle">Click on any planet to view your saved items below</p>
         
         <div class="solar-system" id="solarSystem">
           <!-- Central Star -->
@@ -148,6 +148,131 @@
         </div>
       </div>
       
+      <!-- Terminal Lists Section -->
+      <div class="terminal-section" id="terminalSection">
+        <h2 class="section-title terminal-title">
+          <span class="terminal-icon">&#128187;</span>
+          Data Terminal
+        </h2>
+        <p class="section-subtitle">Your saved items organized by category</p>
+        
+        <div class="terminals-grid">
+          <!-- Vocabulary Terminal -->
+          <div class="terminal" id="terminal-vocabulary" data-category="vocabulary">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title-text">vocabulary.dat</span>
+              <span class="terminal-count" id="terminal-count-vocabulary">0 entries</span>
+            </div>
+            <div class="terminal-body" id="list-vocabulary">
+              <div class="terminal-line empty-message">
+                <span class="prompt">&gt;</span>
+                <span class="text-muted">No entries yet. Add some above!</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Grammar Terminal -->
+          <div class="terminal" id="terminal-grammar" data-category="grammar">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title-text">grammar.dat</span>
+              <span class="terminal-count" id="terminal-count-grammar">0 entries</span>
+            </div>
+            <div class="terminal-body" id="list-grammar">
+              <div class="terminal-line empty-message">
+                <span class="prompt">&gt;</span>
+                <span class="text-muted">No entries yet. Add some above!</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phrasal Verbs Terminal -->
+          <div class="terminal" id="terminal-phrasal" data-category="phrasal">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title-text">phrasal_verbs.dat</span>
+              <span class="terminal-count" id="terminal-count-phrasal">0 entries</span>
+            </div>
+            <div class="terminal-body" id="list-phrasal">
+              <div class="terminal-line empty-message">
+                <span class="prompt">&gt;</span>
+                <span class="text-muted">No entries yet. Add some above!</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Idioms Terminal -->
+          <div class="terminal" id="terminal-idioms" data-category="idioms">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title-text">idioms.dat</span>
+              <span class="terminal-count" id="terminal-count-idioms">0 entries</span>
+            </div>
+            <div class="terminal-body" id="list-idioms">
+              <div class="terminal-line empty-message">
+                <span class="prompt">&gt;</span>
+                <span class="text-muted">No entries yet. Add some above!</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Listening Terminal -->
+          <div class="terminal" id="terminal-listening" data-category="listening">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title-text">listening.dat</span>
+              <span class="terminal-count" id="terminal-count-listening">0 entries</span>
+            </div>
+            <div class="terminal-body" id="list-listening">
+              <div class="terminal-line empty-message">
+                <span class="prompt">&gt;</span>
+                <span class="text-muted">No entries yet. Add some above!</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Writing Terminal -->
+          <div class="terminal" id="terminal-writing" data-category="writing">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title-text">writing.dat</span>
+              <span class="terminal-count" id="terminal-count-writing">0 entries</span>
+            </div>
+            <div class="terminal-body" id="list-writing">
+              <div class="terminal-line empty-message">
+                <span class="prompt">&gt;</span>
+                <span class="text-muted">No entries yet. Add some above!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <!-- Counter -->
       <div class="celestial-counter">
         <span id="counterText">Celestial body: 1/11</span>
@@ -161,29 +286,6 @@
   <!-- Floating particles -->
   <div class="floating-particles" id="floatingParticles"></div>
   
-  <!-- Modal for item list -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="modal">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle">Topic Items</h2>
-        <button class="modal-close" id="modalClose">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="items-list" id="itemsList">
-          <!-- Items will be inserted here -->
-        </div>
-        <div class="empty-state" id="emptyState">
-          <div class="empty-icon">&#127759;</div>
-          <p>No items yet. Add some from the cards above!</p>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <span class="total-items" id="totalItems">Total: 0 items</span>
-        <button class="clear-btn" id="clearBtn">Clear All</button>
-      </div>
-    </div>
-  </div>
-  
-  <script src="stellar-organizer-v2.js"></script>
+  <script src="stellar-organizer-v3.js"></script>
 </body>
 </html>

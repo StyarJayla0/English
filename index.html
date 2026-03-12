@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stellar English Organizer</title>
+  <link rel="stylesheet" href="stellar-organizer.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="universe">
+    <!-- Estrellas de fondo animadas -->
+    <div class="stars-bg"></div>
+    <div class="stars-bg-2"></div>
+    <div class="stars-bg-3"></div>
+    
+    <!-- Contenedor principal -->
+    <div class="container">
+      <header class="header">
+        <h1 class="title">Stellar English Organizer</h1>
+        <p class="subtitle">Organiza tus temas de inglés en el cosmos</p>
+      </header>
+      
+      <!-- Cuerpo celeste central interactivo -->
+      <div class="celestial-container">
+        <div class="celestial-body" id="celestialBody">
+          <div class="celestial-glow"></div>
+          <div class="celestial-core"></div>
+          <div class="celestial-ring"></div>
+        </div>
+        <div class="celestial-name" id="celestialName">Estrella</div>
+        <p class="click-hint">Click para cambiar</p>
+      </div>
+      
+      <!-- Panel de organización de temas -->
+      <div class="organizer-panel">
+        <h2 class="panel-title">Temas de Ingles</h2>
+        
+        <div class="categories-grid">
+          <!-- Categoría 1 -->
+          <div class="category-card" data-category="vocabulary">
+            <div class="card-icon">&#128214;</div>
+            <h3>Vocabulary</h3>
+            <textarea class="card-notes" placeholder="Escribe tus palabras aqui..."></textarea>
+            <div class="card-tags">
+              <span class="tag">noun</span>
+              <span class="tag">verb</span>
+              <span class="tag">adjective</span>
+            </div>
+          </div>
+          
+          <!-- Categoría 2 -->
+          <div class="category-card" data-category="grammar">
+            <div class="card-icon">&#9889;</div>
+            <h3>Grammar</h3>
+            <textarea class="card-notes" placeholder="Reglas gramaticales..."></textarea>
+            <div class="card-tags">
+              <span class="tag">tenses</span>
+              <span class="tag">conditionals</span>
+              <span class="tag">modals</span>
+            </div>
+          </div>
+          
+          <!-- Categoría 3 -->
+          <div class="category-card" data-category="phrasal">
+            <div class="card-icon">&#128640;</div>
+            <h3>Phrasal Verbs</h3>
+            <textarea class="card-notes" placeholder="Phrasal verbs..."></textarea>
+            <div class="card-tags">
+              <span class="tag">get up</span>
+              <span class="tag">look for</span>
+              <span class="tag">give up</span>
+            </div>
+          </div>
+          
+          <!-- Categoría 4 -->
+          <div class="category-card" data-category="idioms">
+            <div class="card-icon">&#11088;</div>
+            <h3>Idioms</h3>
+            <textarea class="card-notes" placeholder="Expresiones idiomaticas..."></textarea>
+            <div class="card-tags">
+              <span class="tag">piece of cake</span>
+              <span class="tag">break a leg</span>
+            </div>
+          </div>
+          
+          <!-- Categoría 5 -->
+          <div class="category-card" data-category="listening">
+            <div class="card-icon">&#127911;</div>
+            <h3>Listening</h3>
+            <textarea class="card-notes" placeholder="Notas de listening..."></textarea>
+            <div class="card-tags">
+              <span class="tag">podcasts</span>
+              <span class="tag">songs</span>
+            </div>
+          </div>
+          
+          <!-- Categoría 6 -->
+          <div class="category-card" data-category="writing">
+            <div class="card-icon">&#9997;</div>
+            <h3>Writing</h3>
+            <textarea class="card-notes" placeholder="Tips de escritura..."></textarea>
+            <div class="card-tags">
+              <span class="tag">essays</span>
+              <span class="tag">emails</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contador de cuerpos celestes -->
+      <div class="celestial-counter">
+        <span id="counterText">Cuerpo celeste: 1/10</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Partículas flotantes -->
+  <div class="floating-particles" id="floatingParticles"></div>
+  
+  <script src="stellar-organizer.js"></script>
+</body>
+</html>
